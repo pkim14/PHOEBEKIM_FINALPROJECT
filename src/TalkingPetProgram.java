@@ -3,7 +3,7 @@ import javax.swing.*;
 /**
  * Main class that launches the Talking Pet application
  */
-public class TalkingPetApp {
+public class TalkingPetProgram {
     public static void main(String[] args) {
         // Use the Event Dispatch Thread for Swing applications
         SwingUtilities.invokeLater(() -> {
