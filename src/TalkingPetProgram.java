@@ -7,7 +7,7 @@ public class TalkingPetApp {
     public static void main(String[] args) {
         // Use the Event Dispatch Thread for Swing applications
         SwingUtilities.invokeLater(() -> {
-            PetModel model = new PetModel();
+            pet model = new pet();
             PetView view = new PetView();
             PetController controller = new PetController(model, view);
 
