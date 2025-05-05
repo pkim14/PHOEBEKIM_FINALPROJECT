@@ -27,8 +27,13 @@ class GameFrame extends JFrame {
         setLocationRelativeTo(null);
 
         gamePanel = new GamePanel();
-
+        add(gamePanel);
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                gamePanel.keyPressed(e);
+            }
+        });
     }
 }
-class GamePanel extends JPanel implements ActionListener {
 
