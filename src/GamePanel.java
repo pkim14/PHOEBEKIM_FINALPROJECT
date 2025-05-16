@@ -77,13 +77,85 @@ public class GamePanel extends JPanel implements ActionListener {
             g2d.drawLine(0, groundY + 30, getWidth(), groundY + 30);
 
             // score
+//            g2d.setColor(isNight ? Color.WHITE : Color.BLACK);
+            g2d.setFont(new Font("Arial", Font.BOLD, 30));
+            g2d.drawString("Score: " + score, getWidth() - 120, 30);
 
+            // draw dinosaur
+            dino.draw(g2d);
 
+            // draw obstacles
+            for (Obstacle obstacle : obstacles) {
+                obstacle.draw(g2d);
+            }
+
+            // game over message
+            if (isGameOver) {
+                g2d.setFont(new Font("Arial", Font.BOLD, 30));
+                String gameOverText = "Game Over";
+                FontMetrics metrics = g2d.getFontMetrics();
+                int x = (getWidth() - metrics.stringWidth(gameOverText)) / 2;
+                g2d.drawString(gameOverText, x, getHeight() / 2);
+
+                g2d.setFont(new Font("Arial", Font.PLAIN, 16));
+                String restartText = "Press SPACE to restart";
+                metrics = g2d.getFontMetrics();
+                x = (getWidth() - metrics.stringWidth(restartText)) / 2;
+                g2d.drawString(restartText, x, getHeight()/2 + 30);
+            }
         }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (!isGameOver) {
+            // update score
+            score++;
 
+            if (score % 500 == 0) {
+                speed++;
+            }
+
+            backgroundCycle++;
+            if (backgroundCycle >= 2000) {
+                backgroundCycle = 0;
+            }
+
+            dino.update();
+
+            // create new obstacles
+            ticksSinceLastObstacle++;
+            if (ticksSinceLastObstacle >= obstacleInterval) {
+                // 0 = small cactus, 1 = large cactus, 2 = bird
+                int obstacleType = random.nextInt(3);
+                int obstacleY = groundY;
+
+                if (obstacleType == 2) {
+                    int[] heights = {groundY - 40, groundY - 70, groundY - 100};
+                    obstacleY = heights[random.nextInt(heights.length)];
+                }
+
+                obstacles.add(new Obstacle(getWidth(), obstacleY, obstacleType));
+                ticksSinceLastObstacle = 0;
+                obstacleInterval = 30 + random.nextInt(50);
+            }
+
+            // update obstacles
+            for (int i = obstacles.size() - 1; i >= 0; i--) {
+                Obstacle obstacle = obstacles.get(i);
+                obstacle.update(speed);
+
+                // remove obstacles that are off-screen
+                if (obstacle.getX() < -50) {
+                    obstacles.remove(i);
+                }
+            }
+        }
+        repaint();
+    }
+
+    private void gameOver() {
+        isGameOver = true;
+        timer.stop();
     }
 }
 
