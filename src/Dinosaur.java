@@ -27,6 +27,7 @@ public class Dinosaur {
 
         // how jumping works?
         if (isJumping) {
+            System.out.println("Dino y = " + y + " jumpVelocity = " + jumpVelocity);
             y += jumpVelocity;
             jumpVelocity += 1; // gravity
 
@@ -48,6 +49,7 @@ public class Dinosaur {
 
     public void jump() {
         if (!isJumping) {
+            System.out.println("dino jumping");
             isJumping = true;
             // negative value means it is not going up
             jumpVelocity = -15;

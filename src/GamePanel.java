@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,6 +25,8 @@ public class GamePanel extends JPanel implements ActionListener {
         setBackground(Color.WHITE);
         setFocusable(true);
 
+        // MAYBE USE KEY BINDINGS THAN KEYLISTENER
+
         groundY = 220;
         dino = new Dinosaur(50, groundY);
         obstacles = new ArrayList<>();
@@ -33,7 +36,6 @@ public class GamePanel extends JPanel implements ActionListener {
         obstacleInterval = 50;
         ticksSinceLastObstacle = 0;
         isGameOver = false;
-//        isNight = false;
         backgroundCycle = 0;
 
         timer = new Timer(20, this);
@@ -77,9 +79,8 @@ public class GamePanel extends JPanel implements ActionListener {
             g2d.drawLine(0, groundY + 30, getWidth(), groundY + 30);
 
             // score
-//            g2d.setColor(isNight ? Color.WHITE : Color.BLACK);
             g2d.setFont(new Font("Arial", Font.BOLD, 30));
-            g2d.drawString("Score: " + score, getWidth() - 120, 30);
+            g2d.drawString("Score: " + score, getWidth() - 200, 30);
 
             // draw dinosaur
             dino.draw(g2d);
@@ -150,6 +151,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 }
             }
         }
+        dino.update();
         repaint();
     }
 
