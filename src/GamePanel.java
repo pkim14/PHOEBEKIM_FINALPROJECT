@@ -57,54 +57,59 @@ public class GamePanel extends JPanel implements ActionListener {
     private void restartGame() {
         dino = new Dinosaur(50, groundY);
         obstacles.clear();
-        score =0;
-        speed =5;
-        obstacleInterval =50;
-        ticksSinceLastObstacle =0;
-        isGameOver =false;
+        score = 0;
+        speed = 5;
+        obstacleInterval = 50;
+        ticksSinceLastObstacle = 0;
+        isGameOver = false;
         timer.start();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // background color
+        setBackground(Color.WHITE);
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        // ground
+        g2d.setColor(Color.GRAY);
+        g2d.drawLine(0, groundY + 30, getWidth(), groundY + 30);
+
+        // score
+        g2d.setFont(new Font("Arial", Font.BOLD, 30));
+        g2d.drawString("Score: " + score, getWidth() - 200, 30);
+
+        // draw dinosaur
+        dino.draw(g2d);
+
+        // draw obstacles
+        for (Obstacle obstacle : obstacles) {
+            obstacle.draw(g2d);
         }
 
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-
-            // background color
-            setBackground(Color.WHITE);
-
-            Graphics2D g2d = (Graphics2D) g;
-
-            // ground
-            g2d.setColor(Color.GRAY);
-            g2d.drawLine(0, groundY + 30, getWidth(), groundY + 30);
-
-            // score
+        // game over message
+        if (isGameOver) {
             g2d.setFont(new Font("Arial", Font.BOLD, 30));
-            g2d.drawString("Score: " + score, getWidth() - 200, 30);
+            String gameOverText = "Game Over";
+            FontMetrics metrics = g2d.getFontMetrics();
+            int x = (getWidth() - metrics.stringWidth(gameOverText)) / 2;
+            g2d.drawString(gameOverText, x, getHeight() / 2);
 
-            // draw dinosaur
-            dino.draw(g2d);
-
-            // draw obstacles
-            for (Obstacle obstacle : obstacles) {
-                obstacle.draw(g2d);
-            }
-
-            // game over message
-            if (isGameOver) {
-                g2d.setFont(new Font("Arial", Font.BOLD, 30));
-                String gameOverText = "Game Over";
-                FontMetrics metrics = g2d.getFontMetrics();
-                int x = (getWidth() - metrics.stringWidth(gameOverText)) / 2;
-                g2d.drawString(gameOverText, x, getHeight() / 2);
-
-                g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-                String restartText = "Press SPACE to restart";
-                metrics = g2d.getFontMetrics();
-                x = (getWidth() - metrics.stringWidth(restartText)) / 2;
-                g2d.drawString(restartText, x, getHeight()/2 + 30);
-            }
+            g2d.setFont(new Font("Arial", Font.PLAIN, 16));
+            String restartText = "Press SPACE to restart";
+            metrics = g2d.getFontMetrics();
+            x = (getWidth() - metrics.stringWidth(restartText)) / 2;
+            g2d.drawString(restartText, x, getHeight() / 2 + 30);
         }
+    }
+
+    private void gameOver() {
+        isGameOver = true;
+        timer.stop();
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -154,11 +159,5 @@ public class GamePanel extends JPanel implements ActionListener {
         dino.update();
         repaint();
     }
-
-    private void gameOver() {
-        isGameOver = true;
-        timer.stop();
-    }
 }
-
 

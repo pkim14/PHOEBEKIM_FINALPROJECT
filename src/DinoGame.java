@@ -28,12 +28,12 @@ class GameFrame extends JFrame {
 
         gamePanel = new GamePanel();
         add(gamePanel);
-//        addKeyListener(new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                gamePanel.keyPressed(e);
-//            }
-//        });
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                gamePanel.keyPressed(e);
+            }
+        });
     }
 }
 
