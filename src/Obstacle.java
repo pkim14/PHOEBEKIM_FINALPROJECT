@@ -6,7 +6,7 @@ public class Obstacle {
     private int width;
     private int height;
     // 0 = small cactus, 1 = large cactus, 2 = bird
-    private int type;
+    private final int type;
     private int animationFrame;
     private int animationCounter;
 
@@ -62,6 +62,11 @@ public class Obstacle {
     public int getHeight() {
         return height;
     }
+
+    public int getType() {
+        return type;
+    }
+
 
     public void draw(Graphics2D g2d) {
         g2d.setColor(Color.LIGHT_GRAY);

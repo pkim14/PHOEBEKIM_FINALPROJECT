@@ -18,14 +18,11 @@ public class GamePanel extends JPanel implements ActionListener {
     private int speed;
     private int obstacleInterval;
     private int ticksSinceLastObstacle;
-    //    private boolean isNight;
     private int backgroundCycle;
 
     public GamePanel() {
         setBackground(Color.WHITE);
         setFocusable(true);
-
-        // MAYBE USE KEY BINDINGS THAN KEYLISTENER
 
         groundY = 220;
         dino = new Dinosaur(50, groundY);
@@ -59,7 +56,7 @@ public class GamePanel extends JPanel implements ActionListener {
         obstacles.clear();
         score = 0;
         speed = 5;
-        obstacleInterval = 50;
+        obstacleInterval = 60;
         ticksSinceLastObstacle = 0;
         isGameOver = false;
         timer.start();
@@ -117,6 +114,8 @@ public class GamePanel extends JPanel implements ActionListener {
             // update score
             score++;
 
+            //  CHANGE SCORE METHOD
+
             if (score % 500 == 0) {
                 speed++;
             }
@@ -136,7 +135,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 int obstacleY = groundY;
 
                 if (obstacleType == 2) {
-                    int[] heights = {groundY - 40, groundY - 70, groundY - 100};
+                    int[] heights = {groundY - 50, groundY - 30, groundY - 100};
+//                    int[] heights = {groundY - 40, groundY - 70, groundY - 100};
                     obstacleY = heights[random.nextInt(heights.length)];
                 }
 
@@ -153,6 +153,15 @@ public class GamePanel extends JPanel implements ActionListener {
                 // remove obstacles that are off-screen
                 if (obstacle.getX() < -50) {
                     obstacles.remove(i);
+                }
+            }
+
+            // check for collision between dino and any obstacles
+            for (Obstacle obstacle : obstacles) {
+                if (dino.collidesWith(obstacle)) {
+                    System.out.println("Collision with: " + obstacle.getClass().getSimpleName());
+                    gameOver();
+                    break; // end the check after game over
                 }
             }
         }

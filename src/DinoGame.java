@@ -12,6 +12,8 @@ public class DinoGame {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new GameFrame("Dino Game");
             frame.setVisible(true);
+            // tells the operating system to give the keyboard focus to the frame (fixed the jumping problem ><)
+            frame.requestFocus();
         });
     }
 }
