@@ -135,10 +135,14 @@ public class GamePanel extends JPanel implements ActionListener {
                 int obstacleY = groundY;
 
                 if (obstacleType == 2) {
-                    int[] heights = {groundY - 50, groundY - 30, groundY - 100};
-//                    int[] heights = {groundY - 40, groundY - 70, groundY - 100};
+//                    int[] heights = {groundY - 30, groundY - 20, groundY - 100};
+                    int[] heights = {groundY - 10, groundY - 30, groundY};
                     obstacleY = heights[random.nextInt(heights.length)];
                 }
+
+//                if (obstacleType == 2) {
+//                    obstacleY = groundY; // TESTING
+//                }
 
                 obstacles.add(new Obstacle(getWidth(), obstacleY, obstacleType));
                 ticksSinceLastObstacle = 0;
@@ -159,14 +163,20 @@ public class GamePanel extends JPanel implements ActionListener {
             // check for collision between dino and any obstacles
             for (Obstacle obstacle : obstacles) {
                 if (dino.collidesWith(obstacle)) {
-                    System.out.println("Collision with: " + obstacle.getClass().getSimpleName());
+                    if (obstacle.getType() == 2) {
+                            System.out.println("Dino collided with a bird");
+                    } else {
+                        System.out.println("Dino collided with a cactus");
+                        }
                     gameOver();
-                    break; // end the check after game over
+                    break; // Only break if a collision happens
                 }
             }
+
+                dino.update();
+                repaint();
+            }
         }
-        dino.update();
-        repaint();
     }
-}
+
 

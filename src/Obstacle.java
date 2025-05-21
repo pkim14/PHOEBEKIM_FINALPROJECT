@@ -83,6 +83,12 @@ public class Obstacle {
         else {
             drawBird(g2d);
         }
+
+        // TESTING
+        if (type == 2) { // Only for birds
+            g2d.setColor(Color.BLUE);
+            g2d.drawRect(x, y, width, height);
+        }
     }
 
     private void drawCactus(Graphics2D g2d, int size) {

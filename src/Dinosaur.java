@@ -72,6 +72,10 @@ public class Dinosaur {
     public void draw(Graphics2D g2d) {
         g2d.setColor(Color.LIGHT_GRAY);
 
+        // TESTING
+        g2d.setColor(Color.RED);
+        g2d.drawRect(x, y, width, height);
+
         // draw body
         g2d.fillRect(x, y - height + 30, width - 10, height - 10);
 
