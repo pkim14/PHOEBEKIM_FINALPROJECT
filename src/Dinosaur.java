@@ -8,8 +8,11 @@ public class Dinosaur {
     private int jumpVelocity;
     private int initialY;
     private boolean isJumping;
+    private boolean isDucking;
     private int runAnimationFrame;
     private int animationCounter;
+    private final int normalHeight = 60;
+    private final int duckingHeight = 35;
 
     public Dinosaur(int x, int y) {
         this.x = x;
@@ -19,6 +22,7 @@ public class Dinosaur {
         this.height = 60;
         this.jumpVelocity = 0;
         this.isJumping = false;
+        this.isDucking = false;
         this.runAnimationFrame = 0;
         this.animationCounter = 0;
     }
@@ -34,8 +38,13 @@ public class Dinosaur {
             if (y >= initialY) {
                 y = initialY;
                 isJumping = false;
-                jumpVelocity = 0;
+                jumpVelocity = -50; // MAY NEED TO BE CHANGED
             }
+        }
+
+        // set height based on ducking state when it is not jumping
+        if (!isJumping) {
+            height = isDucking ? duckingHeight : normalHeight;
         }
 
         // update running animation
@@ -48,11 +57,16 @@ public class Dinosaur {
     }
 
     public void jump() {
-        if (!isJumping) {
-            System.out.println("dino jumping");
+        if (!isJumping && !isDucking) {
             isJumping = true;
             // negative value means it is not going up
             jumpVelocity = -15;
+        }
+    }
+
+    public void duck(boolean ducking) {
+        if (!isJumping) {
+            isDucking = ducking;
         }
     }
 
@@ -60,13 +74,19 @@ public class Dinosaur {
         return isJumping;
     }
 
+    public boolean isDucking() {
+        return isDucking;
+    }
+
     public boolean collidesWith(Obstacle obstacle) {
+
+        int collisionYOffset = 40;
 
         // simple rectangle collision
         return x < obstacle.getX() + obstacle.getWidth() - 10 &&
                 x + width - 10 > obstacle.getX() &&
-                y  < obstacle.getY() + obstacle.getHeight() - 10 &&
-                y + height - 10 > obstacle.getY();
+                (y - collisionYOffset) < obstacle.getY() + obstacle.getHeight() - 10 &&
+                (y - collisionYOffset) + height - 10 > obstacle.getY();
     }
 
     public void draw(Graphics2D g2d) {
@@ -74,7 +94,8 @@ public class Dinosaur {
 
         // TESTING
         g2d.setColor(Color.RED);
-        g2d.drawRect(x, y, width, height);
+        int collisionYOffset = 40; // using the same value as in your collision
+        g2d.drawRect(x, y - collisionYOffset, width, height);
 
         // draw body
         g2d.fillRect(x, y - height + 30, width - 10, height - 10);
@@ -104,3 +125,10 @@ public class Dinosaur {
         }
     }
 }
+
+
+
+
+
+
+

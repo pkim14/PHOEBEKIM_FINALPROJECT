@@ -135,8 +135,8 @@ public class GamePanel extends JPanel implements ActionListener {
                 int obstacleY = groundY;
 
                 if (obstacleType == 2) {
-//                    int[] heights = {groundY - 30, groundY - 20, groundY - 100};
-                    int[] heights = {groundY - 10, groundY - 30, groundY};
+                    int[] heights = {groundY - 30, groundY - 20, groundY - 100};
+//                    int[] heights = {groundY - 10, groundY - 30, groundY};
                     obstacleY = heights[random.nextInt(heights.length)];
                 }
 
