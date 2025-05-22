@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -48,6 +49,16 @@ public class GamePanel extends JPanel implements ActionListener {
             } else if (!dino.isJumping()) {
                 dino.jump();
             }
+        }
+        else if (key == KeyEvent.VK_DOWN) {
+            dino.duck();
+        }
+    }
+
+    public void keyReleased(KeyEvent e) {
+        int key = e.getKeyCode();
+        if (key == KeyEvent.VK_DOWN) {
+            dino.stand();
         }
     }
 

@@ -11,15 +11,19 @@ public class Dinosaur {
     private boolean isDucking;
     private int runAnimationFrame;
     private int animationCounter;
-    private final int normalHeight = 60;
-    private final int duckingHeight = 35;
+
+    private static final int normalHeight = 60;
+    private static final int duckingHeight = 30;
+    private static final int normalWidth = 40;
+    private static final int duckingWidth = 60;
+
 
     public Dinosaur(int x, int y) {
         this.x = x;
         this.initialY = y;
         this.y = y;
-        this.width = 40;
-        this.height = 60;
+        this.width = normalWidth;
+        this.height = normalHeight;
         this.jumpVelocity = 0;
         this.isJumping = false;
         this.isDucking = false;
@@ -38,13 +42,8 @@ public class Dinosaur {
             if (y >= initialY) {
                 y = initialY;
                 isJumping = false;
-                jumpVelocity = -50; // MAY NEED TO BE CHANGED
+                jumpVelocity = -150; // MAY NEED TO BE CHANGED
             }
-        }
-
-        // set height based on ducking state when it is not jumping
-        if (!isJumping) {
-            height = isDucking ? duckingHeight : normalHeight;
         }
 
         // update running animation
@@ -57,6 +56,8 @@ public class Dinosaur {
     }
 
     public void jump() {
+
+        // can't jump while ducking
         if (!isJumping && !isDucking) {
             isJumping = true;
             // negative value means it is not going up
@@ -64,9 +65,21 @@ public class Dinosaur {
         }
     }
 
-    public void duck(boolean ducking) {
-        if (!isJumping) {
-            isDucking = ducking;
+    public void duck() {
+        if (!isJumping && !isDucking) {
+            isDucking = true;
+            height = duckingHeight;
+            width = duckingWidth;
+            y = initialY + (normalHeight - duckingHeight);
+        }
+    }
+
+    public void stand() {
+        if (isDucking) {
+            isDucking = false;
+            y = initialY;
+            width = normalWidth;
+            height = normalHeight;
         }
     }
 
@@ -97,34 +110,41 @@ public class Dinosaur {
         int collisionYOffset = 40; // using the same value as in your collision
         g2d.drawRect(x, y - collisionYOffset, width, height);
 
-        // draw body
-        g2d.fillRect(x, y - height + 30, width - 10, height - 10);
 
-        // draw head
-        g2d.fillRect(x + width - 20, y - height + 10, 20, 30);
-
-        // draw eye
-        g2d.setColor(Color.BLACK);
-        g2d.fillOval(x + width, y - height + 20, 5, 5);
-
-        // draw legs while running
         g2d.setColor(Color.LIGHT_GRAY);
-        if (isJumping) {
-            g2d.fillRect(x,y - 5, 20, 5);
-            g2d.fillRect(x + 15, y - 10, 20, 5);
-        }
-        else {
-            if (runAnimationFrame == 0) {
-                g2d.fillRect(x, y, 10, 30 );
-                g2d.fillRect(x + 20, y + 15, 10, 15);
-            }
-            else {
-                g2d.fillRect(x + 20, y, 10, 30);
-                g2d.fillRect(x, y + 15, 10, 15);
+        if (isDucking) {
+            g2d.fillRect(x, y - height + 20, width - 19, height - 5); // body
+            g2d.fillRect(x + width - 25, y - height + 5, 25, 20); // head
+            g2d.setColor(Color.BLACK);
+            g2d.fillOval(x + width - 10, y - height + 12, 5, 5); // eye
+        } else { // normal pose
+            g2d.fillRect(x, y - height + 30, width - 10, height - 10);
+            g2d.fillRect(x + width - 20, y - height + 10, 20, 30);
+            g2d.setColor(Color.BLACK);
+            g2d.fillOval(x + width, y - height + 20, 5, 5);
+
+            g2d.setColor(Color.LIGHT_GRAY);
+            if (isJumping) {
+                g2d.fillRect(x, y - 5, 20, 5);
+                g2d.fillRect(x + 15, y - 10, 20, 5);
+            } else {
+                if (runAnimationFrame == 0) {
+                    g2d.fillRect(x, y, 10, 30);
+                    g2d.fillRect(x + 20, y + 15, 10, 15);
+                } else {
+                    g2d.fillRect(x + 20, y, 10, 30);
+                    g2d.fillRect(x, y + 15, 10, 15);
+                }
             }
         }
     }
 }
+
+
+
+
+
+
 
 
 

@@ -35,6 +35,10 @@ class GameFrame extends JFrame {
             public void keyPressed(KeyEvent e) {
                 gamePanel.keyPressed(e);
             }
+            @Override
+            public void keyReleased(KeyEvent e) {
+                gamePanel.keyReleased(e);
+            }
         });
     }
 }
