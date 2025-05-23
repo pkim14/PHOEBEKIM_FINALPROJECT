@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private int obstacleInterval;
     private int ticksSinceLastObstacle;
     private int backgroundCycle;
+    private int scoreTickCounter;
 
     public GamePanel() {
         setBackground(Color.WHITE);
@@ -123,11 +124,16 @@ public class GamePanel extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (!isGameOver) {
             // update score
-            score++;
+            scoreTickCounter++;
 
-            //  CHANGE SCORE METHOD
+            if (scoreTickCounter >= 5) {
+                score++;
+                scoreTickCounter = 0;
+            }
 
-            if (score % 500 == 0) {
+
+            // changing speed depending on score
+            if (score > 200 && (score - 200) % 50 == 0) {
                 speed++;
             }
 
@@ -146,7 +152,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 int obstacleY = groundY;
 
                 if (obstacleType == 2) {
-                    int[] heights = {groundY - 30, groundY - 20, groundY - 100};
+                    int[] heights = {groundY - 30, groundY, groundY - 100};
 //                    int[] heights = {groundY - 10, groundY - 30, groundY};
                     obstacleY = heights[random.nextInt(heights.length)];
                 }

@@ -42,7 +42,7 @@ public class Dinosaur {
             if (y >= initialY) {
                 y = initialY;
                 isJumping = false;
-                jumpVelocity = -150; // MAY NEED TO BE CHANGED
+                jumpVelocity = -1000; // MAY NEED TO BE CHANGED
             }
         }
 
@@ -61,7 +61,7 @@ public class Dinosaur {
         if (!isJumping && !isDucking) {
             isJumping = true;
             // negative value means it is not going up
-            jumpVelocity = -15;
+            jumpVelocity = -20;
         }
     }
 
@@ -106,10 +106,9 @@ public class Dinosaur {
         g2d.setColor(Color.LIGHT_GRAY);
 
         // TESTING
-        g2d.setColor(Color.RED);
+//        g2d.setColor(Color.RED);
         int collisionYOffset = 40; // using the same value as in your collision
-        g2d.drawRect(x, y - collisionYOffset, width, height);
-
+//        g2d.drawRect(x, y - collisionYOffset, width, height);
 
         g2d.setColor(Color.LIGHT_GRAY);
         if (isDucking) {

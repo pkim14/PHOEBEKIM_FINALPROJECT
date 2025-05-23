@@ -25,7 +25,7 @@ public class Obstacle {
         // large cactus
         else  if (type == 1) {
             this.width = 30;
-            this.height = 60;
+            this.height = 80;
         }
         // bird
         else {
@@ -85,11 +85,10 @@ public class Obstacle {
         }
 
         // TESTING
-        if (type == 2) { // Only for birds
-            g2d.setColor(Color.BLUE);
-            g2d.drawRect(x, y, width, height);
+//        if (type == 2) { // Only for birds
+//            g2d.setColor(Color.BLUE);
+//            g2d.drawRect(x, y, width, height);
         }
-    }
 
     private void drawCactus(Graphics2D g2d, int size) {
 
