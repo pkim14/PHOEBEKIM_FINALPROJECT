@@ -12,6 +12,7 @@ public class Dinosaur {
     private int runAnimationFrame;
     private int animationCounter;
 
+    private int jumpHorizontalVelocity = 0;
     private static final int normalHeight = 60;
     private static final int duckingHeight = 30;
     private static final int normalWidth = 40;
@@ -29,6 +30,7 @@ public class Dinosaur {
         this.isDucking = false;
         this.runAnimationFrame = 0;
         this.animationCounter = 0;
+        this.jumpHorizontalVelocity = 0;
     }
 
     public void update() {
@@ -42,7 +44,8 @@ public class Dinosaur {
             if (y >= initialY) {
                 y = initialY;
                 isJumping = false;
-                jumpVelocity = -1000; // MAY NEED TO BE CHANGED
+                jumpVelocity = 20; // MAY NEED TO BE CHANGED
+                jumpHorizontalVelocity = 0;
             }
         }
 
@@ -61,7 +64,8 @@ public class Dinosaur {
         if (!isJumping && !isDucking) {
             isJumping = true;
             // negative value means it is not going up
-            jumpVelocity = -20;
+            jumpVelocity = -15;
+            jumpHorizontalVelocity = -100;
         }
     }
 
@@ -103,14 +107,14 @@ public class Dinosaur {
     }
 
     public void draw(Graphics2D g2d) {
-        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.setColor(Color.GRAY);
 
         // TESTING
 //        g2d.setColor(Color.RED);
         int collisionYOffset = 40; // using the same value as in your collision
 //        g2d.drawRect(x, y - collisionYOffset, width, height);
 
-        g2d.setColor(Color.LIGHT_GRAY);
+//        g2d.setColor(Color.LIGHT_GRAY);
         if (isDucking) {
             g2d.fillRect(x, y - height + 20, width - 19, height - 5); // body
             g2d.fillRect(x + width - 25, y - height + 5, 25, 20); // head
@@ -120,9 +124,9 @@ public class Dinosaur {
             g2d.fillRect(x, y - height + 30, width - 10, height - 10);
             g2d.fillRect(x + width - 20, y - height + 10, 20, 30);
             g2d.setColor(Color.BLACK);
-            g2d.fillOval(x + width, y - height + 20, 5, 5);
+            g2d.fillOval(x + width - 10, y - height + 20, 5, 5);
 
-            g2d.setColor(Color.LIGHT_GRAY);
+            g2d.setColor(Color.GRAY);
             if (isJumping) {
                 g2d.fillRect(x, y - 5, 20, 5);
                 g2d.fillRect(x + 15, y - 10, 20, 5);

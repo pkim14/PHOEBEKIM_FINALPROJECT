@@ -120,7 +120,6 @@ public class Obstacle {
         if (animationFrame == 0) {
             // wings up
             g2d.fillRect(x, y - 20, 40, 10);
-//            g2d.fillPolygon(
         }
         else {
             // wings down
