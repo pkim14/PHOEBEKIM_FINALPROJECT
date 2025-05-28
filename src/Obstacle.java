@@ -20,7 +20,7 @@ public class Obstacle {
         // small cactus
         if (type == 0) {
             this.width = 20;
-            this.height = 40;
+            this.height = 30;
         }
         // large cactus
         else  if (type == 1) {
