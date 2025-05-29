@@ -23,7 +23,7 @@ public class Obstacle {
             this.height = 30;
         }
         // large cactus
-        else  if (type == 1) {
+        else if (type == 1) {
             this.width = 30;
             this.height = 80;
         }
@@ -77,7 +77,7 @@ public class Obstacle {
         }
         // large cactus
         else if (type == 1) {
-            drawCactus(g2d,2);
+            drawCactus(g2d, 2);
         }
         // bird
         else {
@@ -88,24 +88,33 @@ public class Obstacle {
 //        if (type == 2) { // Only for birds
 //            g2d.setColor(Color.BLUE);
 //            g2d.drawRect(x, y, width, height);
-        }
+    }
 
     private void drawCactus(Graphics2D g2d, int size) {
+        g2d.setColor(new Color(83, 121, 78)); // color of chrome dino cacti
 
-        // body
-        g2d.fillRect(x + width / 3, y - height + 30, width / 3, height);
+        int mainX = x + width / 2 - 6;
+        int mainY = y - height + 30;
+        int mainWidth = 12;
+        int mainHeight = height;
+
+//         main body
+        g2d.fillRect(mainX, mainY, mainWidth, mainHeight);
 
         // branches
         if (size == 1) {
-            g2d.fillRect(x, y - height + 40, width, 10);
-            g2d.fillRect(x, y - height + 50, width / 3, 20);
+            g2d.fillRect(mainX - 8, mainY + mainHeight / 3, 6, 16);
+            g2d.fillRect(mainX + mainWidth + 2, mainY + mainHeight / 2, 6, 16);
         }
         else {
-            g2d.fillRect(x, y - height + 40, width, 10);
-            g2d.fillRect(x, y - height + 50, width / 3, 30);
-            g2d.fillRect(x + 2 * width / 3, y - height + 60, width / 3, 20);
+            g2d.fillRect(mainX - 16, mainY + 20, 8, mainHeight - 20);
+            g2d.fillRect(mainX + mainWidth + 8, mainY + 10, 8, mainHeight - 10);
+
+            g2d.fillRect(mainX - 18, mainY + 30, 6, 14);
+            g2d.fillRect(mainX + mainWidth + 14, mainY + 30, 6, 14);
         }
-    }
+        }
+
 
     private void drawBird(Graphics2D g2d) {
 

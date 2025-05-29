@@ -45,7 +45,7 @@ public class Dinosaur {
                 y = initialY;
                 isJumping = false;
                 jumpVelocity = 20; // MAY NEED TO BE CHANGED
-                jumpHorizontalVelocity = 0;
+                jumpHorizontalVelocity = -1000;
             }
         }
 
@@ -65,7 +65,7 @@ public class Dinosaur {
             isJumping = true;
             // negative value means it is not going up
             jumpVelocity = -15;
-            jumpHorizontalVelocity = -100;
+            jumpHorizontalVelocity = -10000; // NEEDS TO BE CHANGED
         }
     }
 
