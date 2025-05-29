@@ -107,11 +107,11 @@ public class Obstacle {
             g2d.fillRect(mainX + mainWidth + 2, mainY + mainHeight / 2, 6, 16);
         }
         else {
-            g2d.fillRect(mainX - 16, mainY + 20, 8, mainHeight - 20);
-            g2d.fillRect(mainX + mainWidth + 8, mainY + 10, 8, mainHeight - 10);
+            g2d.fillRect(mainX - 10, mainY + 20, 8, mainHeight - 20);
+            g2d.fillRect(mainX + mainWidth + 2, mainY + 10, 8, mainHeight - 10);
 
-            g2d.fillRect(mainX - 18, mainY + 30, 6, 14);
-            g2d.fillRect(mainX + mainWidth + 14, mainY + 30, 6, 14);
+            g2d.fillRect(mainX - 12, mainY + 30, 6, 14);
+            g2d.fillRect(mainX + mainWidth + 6, mainY + 30, 6, 14);
         }
         }
 
