@@ -44,7 +44,7 @@ public class Dinosaur {
             if (y >= initialY) {
                 y = initialY;
                 isJumping = false;
-                jumpVelocity = 20; // MAY NEED TO BE CHANGED
+                jumpVelocity = 50; // MAY NEED TO BE CHANGED
                 jumpHorizontalVelocity = -1000;
             }
         }

@@ -105,34 +105,65 @@ public class Obstacle {
         if (size == 1) {
             g2d.fillRect(mainX - 8, mainY + mainHeight / 3, 6, 16);
             g2d.fillRect(mainX + mainWidth + 2, mainY + mainHeight / 2, 6, 16);
-        }
-        else {
+        } else {
             g2d.fillRect(mainX - 10, mainY + 20, 8, mainHeight - 20);
             g2d.fillRect(mainX + mainWidth + 2, mainY + 10, 8, mainHeight - 10);
 
             g2d.fillRect(mainX - 12, mainY + 30, 6, 14);
             g2d.fillRect(mainX + mainWidth + 6, mainY + 30, 6, 14);
         }
-        }
+    }
 
 
-    private void drawBird(Graphics2D g2d) {
+//    private void drawBird(Graphics2D g2d) {
+//
+//        // body
+//        g2d.fillOval(x + 10, y, 30, 20);
+//
+//        // head & beak
+//        g2d.fillOval(x + 35, y - 5, 15, 15);
+//        g2d.fillRect(x + 45, y, 10,5);
+//
+//        // wings
+//        if (animationFrame == 0) {
+//            // wings up
+//            g2d.fillRect(x, y - 20, 40, 10);
+//            g2d.fill
+//        }
+//        else {
+//            // wings down
+//            g2d.fillRect(x, y + 10, 40, 10);
+//        }
+//    }
+//}
+
+    private void drawBird (Graphics2D g2d) {
+    g2d.setColor(Color.DARK_GRAY);
 
         // body
-        g2d.fillOval(x + 10, y, 30, 20);
+        g2d.fillRect(x + 10, y + 8, 24, 10);
 
         // head & beak
-        g2d.fillOval(x + 35, y - 5, 15, 15);
-        g2d.fillRect(x + 45, y, 10,5);
+        g2d.fillRect(x + 28, y + 4, 8, 8);
+        g2d.fillRect(x + 36, y + 7, 4,2);
 
-        // wings
-        if (animationFrame == 0) {
-            // wings up
-            g2d.fillRect(x, y - 20, 40, 10);
-        }
-        else {
-            // wings down
-            g2d.fillRect(x, y + 10, 40, 10);
-        }
+    g2d.setColor(Color.DARK_GRAY);
+
+
+    g2d.setColor(Color.DARK_GRAY);
+
+    if (animationFrame == 0) {
+        int[] xPoints = {x + 18, x + 25, x + 22};
+        int[] yPoints = {y + 10, y + 3, y + 14};
+        g2d.fillPolygon(xPoints, yPoints, 3);
     }
-}
+    else {
+        int[] xPoints = {x + 18, x + 25, x + 22};
+        int[] yPoints = {y + 16, y + 23, y + 14};
+        g2d.fillPolygon(xPoints, yPoints, 3);
+    }
+    }
+    }
+
+
+
