@@ -7,6 +7,11 @@ import java.awt.event.KeyListener;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.*;
+import java.awt.FontFormatException;
+import java.io.File;
+import java.io.IOException;
+
 
 public class GamePanel extends JPanel implements ActionListener {
     private Timer timer;
@@ -21,6 +26,8 @@ public class GamePanel extends JPanel implements ActionListener {
     private int ticksSinceLastObstacle;
     private int backgroundCycle;
     private int scoreTickCounter;
+    private int highScore;
+    private Font pixelFont;
 
     public GamePanel() {
         setBackground(Color.WHITE);
@@ -36,9 +43,19 @@ public class GamePanel extends JPanel implements ActionListener {
         ticksSinceLastObstacle = 0;
         isGameOver = false;
         backgroundCycle = 0;
+        highScore = HighScoreTracker.loadHighScore();
 
         timer = new Timer(20, this);
         timer.start();
+
+        try {
+            pixelFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/PressStart2P-Regular.ttf")).deriveFont(30f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(pixelFont);
+        }
+        catch (IOException | FontFormatException e) {
+            pixelFont = new Font("Monospaced", Font.BOLD, 28);
+        }
     }
 
     public void keyPressed(KeyEvent e) {
@@ -64,6 +81,10 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     private void restartGame() {
+        if (score > highScore) {
+            highScore = score;
+            HighScoreTracker.saveHighScore(highScore);
+        }
         dino = new Dinosaur(50, groundY);
         obstacles.clear();
         score = 0;
@@ -88,8 +109,10 @@ public class GamePanel extends JPanel implements ActionListener {
         g2d.drawLine(0, groundY + 30, getWidth(), groundY + 30);
 
         // score
-        g2d.setFont(new Font("Arial", Font.BOLD, 30));
+//        g2d.setFont(new Font("Arial", Font.BOLD, 30));
+        g2d.setFont(pixelFont);
         g2d.drawString("Score: " + score, getWidth() - 200, 30);
+        g2d.drawString("High Score: " + highScore, getWidth() - 500, 30);
 
         // draw dinosaur
         dino.draw(g2d);
