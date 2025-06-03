@@ -114,38 +114,16 @@ public class Obstacle {
         }
     }
 
-
-//    private void drawBird(Graphics2D g2d) {
-//
-//        // body
-//        g2d.fillOval(x + 10, y, 30, 20);
-//
-//        // head & beak
-//        g2d.fillOval(x + 35, y - 5, 15, 15);
-//        g2d.fillRect(x + 45, y, 10,5);
-//
-//        // wings
-//        if (animationFrame == 0) {
-//            // wings up
-//            g2d.fillRect(x, y - 20, 40, 10);
-//            g2d.fill
-//        }
-//        else {
-//            // wings down
-//            g2d.fillRect(x, y + 10, 40, 10);
-//        }
-//    }
-//}
-
     private void drawBird (Graphics2D g2d) {
     g2d.setColor(Color.DARK_GRAY);
 
         // body
-        g2d.fillRect(x + 10, y + 8, 24, 10);
+        g2d.fillRect(x + 6, y + 8, 24, 10);
+
 
         // head & beak
-        g2d.fillRect(x + 28, y + 4, 8, 8);
-        g2d.fillRect(x + 36, y + 7, 4,2);
+        g2d.fillRect(x, y + 4, 8, 8);
+        g2d.fillRect(x - 4, y + 7, 4,2);
 
     g2d.setColor(Color.DARK_GRAY);
 
@@ -153,12 +131,12 @@ public class Obstacle {
     g2d.setColor(Color.DARK_GRAY);
 
     if (animationFrame == 0) {
-        int[] xPoints = {x + 18, x + 25, x + 22};
+        int[] xPoints = {x + 14, x + 7, x + 10};
         int[] yPoints = {y + 10, y + 3, y + 14};
         g2d.fillPolygon(xPoints, yPoints, 3);
     }
     else {
-        int[] xPoints = {x + 18, x + 25, x + 22};
+        int[] xPoints = {x + 14, x + 7, x + 10};
         int[] yPoints = {y + 16, y + 23, y + 14};
         g2d.fillPolygon(xPoints, yPoints, 3);
     }

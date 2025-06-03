@@ -44,7 +44,7 @@ public class Dinosaur {
             if (y >= initialY) {
                 y = initialY;
                 isJumping = false;
-                jumpVelocity = 50; // MAY NEED TO BE CHANGED
+                jumpVelocity = 90; // MAY NEED TO BE CHANGED
                 jumpHorizontalVelocity = -1000;
             }
         }
@@ -131,15 +131,24 @@ public class Dinosaur {
                 g2d.fillRect(x, y - 5, 20, 5);
                 g2d.fillRect(x + 15, y - 10, 20, 5);
             } else {
-                if (runAnimationFrame == 0) {
-                    g2d.fillRect(x, y, 10, 30);
-                    g2d.fillRect(x + 20, y + 15, 10, 15);
-                } else {
-                    g2d.fillRect(x + 20, y, 10, 30);
-                    g2d.fillRect(x, y + 15, 10, 15);
+                if (runAnimationFrame % 2 == 0) {
+                    g2d.fillRect(x + 4, y + 16, 6, 20);
+                    g2d.fillRect(x + 16, y + 20, 6, 18);
                 }
+                else {
+                    g2d.fillRect(x + 4, y + 20, 6, 18);
+                    g2d.fillRect(x + 16, y + 16, 6, 20);
+                }
+//                if (runAnimationFrame == 0) {
+//                    g2d.fillRect(x, y, 10, 30);
+//                    g2d.fillRect(x + 20, y + 15, 10, 15);
+//                } else {
+//                    g2d.fillRect(x + 20, y, 10, 30);
+//                    g2d.fillRect(x, y + 15, 10, 15);
+//                }
             }
         }
+
     }
 }
 
