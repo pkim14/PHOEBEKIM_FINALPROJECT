@@ -5,7 +5,7 @@ public class Dinosaur {
     private int y;
     private int width;
     private int height;
-    private int jumpVelocity;
+    private double jumpVelocity;
     private int initialY;
     private boolean isJumping;
     private boolean isDucking;
@@ -39,7 +39,7 @@ public class Dinosaur {
         if (isJumping) {
             System.out.println("Dino y = " + y + " jumpVelocity = " + jumpVelocity);
             y += jumpVelocity;
-            jumpVelocity += 1; // gravity
+            jumpVelocity += 0.8; // gravity
 
             if (y >= initialY) {
                 y = initialY;

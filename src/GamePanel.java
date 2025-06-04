@@ -1,13 +1,9 @@
 import javax.swing.*;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.security.Key;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
-import java.io.*;
 import java.awt.FontFormatException;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +24,8 @@ public class GamePanel extends JPanel implements ActionListener {
     private int scoreTickCounter;
     private int highScore;
     private Font pixelFont;
+    private Rectangle restartButtonRect = new Rectangle(360, 100, 50, 50);
+    private boolean restartButtonHover = false;
 
     public GamePanel() {
         setBackground(Color.WHITE);
@@ -45,6 +43,8 @@ public class GamePanel extends JPanel implements ActionListener {
         backgroundCycle = 0;
         highScore = HighScoreTracker.loadHighScore();
 
+
+
         timer = new Timer(20, this);
         timer.start();
 
@@ -56,7 +56,16 @@ public class GamePanel extends JPanel implements ActionListener {
         catch (IOException | FontFormatException e) {
             pixelFont = new Font("Monospaced", Font.BOLD, 28);
         }
-    }
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (isGameOver && restartButtonRect.contains(e.getPoint())) {
+                    restartGame();
+                }
+            }
+        });
+        }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -125,16 +134,35 @@ public class GamePanel extends JPanel implements ActionListener {
         // game over message
         if (isGameOver) {
             g2d.setFont(new Font("Arial", Font.BOLD, 30));
+            g2d.setColor(Color.DARK_GRAY);
             String gameOverText = "Game Over";
             FontMetrics metrics = g2d.getFontMetrics();
             int x = (getWidth() - metrics.stringWidth(gameOverText)) / 2;
             g2d.drawString(gameOverText, x, getHeight() / 2);
 
-            g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            String restartText = "Press SPACE to restart";
-            metrics = g2d.getFontMetrics();
-            x = (getWidth() - metrics.stringWidth(restartText)) / 2;
-            g2d.drawString(restartText, x, getHeight() / 2 + 30);
+//            Graphics2D g2d = (Graphics2D) g;
+            g2d.setColor(Color.DARK_GRAY);
+            g2d.fillRoundRect(restartButtonRect.x, restartButtonRect.y, restartButtonRect.width, restartButtonRect.height, 12, 12);
+
+            g2d.setStroke(new BasicStroke(3));
+            g2d.setColor(Color.WHITE);
+
+            int cx = restartButtonRect.x + restartButtonRect.width / 2;
+            int cy = restartButtonRect.y + restartButtonRect.height / 2;
+            int r = 15;
+
+            g2d.drawArc(cx - r, cy - r, 2 * r, 2 * r, 45, 270);
+
+            int[] xPoints = {cx + r, cx + r - 8, cx + r - 3};
+            int[] yPoints = {cy, cy - 6, cy - 2};
+
+
+
+//            g2d.setFont(new Font("Arial", Font.PLAIN, 16));
+//            String restartText = "Press SPACE to restart";
+//            metrics = g2d.getFontMetrics();
+//            x = (getWidth() - metrics.stringWidth(restartText)) / 2;
+//            g2d.drawString(restartText, x, getHeight() / 2 + 30);
         }
     }
 
@@ -217,6 +245,7 @@ public class GamePanel extends JPanel implements ActionListener {
                 repaint();
             }
         }
-    }
+
+}
 
 
