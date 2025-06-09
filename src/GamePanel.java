@@ -138,7 +138,11 @@ public class GamePanel extends JPanel implements ActionListener {
             String gameOverText = "Game Over";
             FontMetrics metrics = g2d.getFontMetrics();
             int x = (getWidth() - metrics.stringWidth(gameOverText)) / 2;
+            int y = getHeight() / 2;
             g2d.drawString(gameOverText, x, getHeight() / 2);
+
+            int buttonY = y + 40;
+            restartButtonRect.y = buttonY;
 
 //            Graphics2D g2d = (Graphics2D) g;
             g2d.setColor(Color.DARK_GRAY);
@@ -153,8 +157,26 @@ public class GamePanel extends JPanel implements ActionListener {
 
             g2d.drawArc(cx - r, cy - r, 2 * r, 2 * r, 45, 270);
 
-            int[] xPoints = {cx + r, cx + r - 8, cx + r - 3};
-            int[] yPoints = {cy, cy - 6, cy - 2};
+            double theta = Math.toRadians(45);
+
+            int tipX = (int)(cx + r * Math.cos(theta));
+            int tipY = (int)(cy - r * Math.sin(theta));
+            int baseLen = 10;
+            double baseAngle1 = Math.toRadians(45 - 30);
+            double baseAngle2 = Math.toRadians(45 + 30);
+
+            int base1X = (int)(tipX - baseLen * Math.cos(baseAngle1));
+            int base1Y = (int) (tipY + baseLen * Math.sin(baseAngle1));
+            int base2X = (int) (tipX - baseLen * Math.cos(baseAngle2));
+            int base2Y = (int) (tipY + baseLen * Math.sin(baseAngle2));
+
+            g2d.fillPolygon(new int[] {tipX, base1X, base2X}, new int[] {tipY, base1Y, base2Y}, 3);
+//            int[] xPoints = {cx + r, cx + r - 8, cx + r - 3};
+//            int[] yPoints = {cy, cy - 6, cy - 2};
+//
+//            g2d.fillPolygon(xPoints, yPoints, 3);
+
+
 
 
 
