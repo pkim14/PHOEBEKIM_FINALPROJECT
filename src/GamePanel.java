@@ -151,40 +151,37 @@ public class GamePanel extends JPanel implements ActionListener {
             g2d.setStroke(new BasicStroke(3));
             g2d.setColor(Color.WHITE);
 
+            int arcStartAngle = 45;
+            int arcExtent = 270;
+            int arcEndAngle = arcStartAngle + arcExtent;
+
             int cx = restartButtonRect.x + restartButtonRect.width / 2;
             int cy = restartButtonRect.y + restartButtonRect.height / 2;
             int r = 15;
 
-            g2d.drawArc(cx - r, cy - r, 2 * r, 2 * r, 45, 270);
+            g2d.drawArc(cx - r, cy - r, 2 * r, 2 * r, arcStartAngle, arcExtent);
 
-            double theta = Math.toRadians(45);
+            double theta = Math.toRadians(arcEndAngle);
 
-            int tipX = (int)(cx + r * Math.cos(theta));
-            int tipY = (int)(cy - r * Math.sin(theta));
-            int baseLen = 10;
-            double baseAngle1 = Math.toRadians(45 - 30);
-            double baseAngle2 = Math.toRadians(45 + 30);
+            int tipX = (int) (cx + r * Math.cos(theta));
+            int tipY = (int) (cy - r * Math.sin(theta));
 
-            int base1X = (int)(tipX - baseLen * Math.cos(baseAngle1));
-            int base1Y = (int) (tipY + baseLen * Math.sin(baseAngle1));
-            int base2X = (int) (tipX - baseLen * Math.cos(baseAngle2));
-            int base2Y = (int) (tipY + baseLen * Math.sin(baseAngle2));
+            double tangentAngle = theta + Math.PI / 2;
 
-            g2d.fillPolygon(new int[] {tipX, base1X, base2X}, new int[] {tipY, base1Y, base2Y}, 3);
-//            int[] xPoints = {cx + r, cx + r - 8, cx + r - 3};
-//            int[] yPoints = {cy, cy - 6, cy - 2};
-//
-//            g2d.fillPolygon(xPoints, yPoints, 3);
+            int arrowLen = 10;
+            int arrowWidth = 6;
 
 
+            int baseX = (int) (tipX - arrowLen * Math.cos(theta));
+            int baseY = (int) (tipY + arrowLen * Math.sin(theta));
+
+            int side1X = (int) (baseX + (arrowWidth / 2.0) * Math.cos(tangentAngle));
+            int side1Y = (int) (baseY + (arrowWidth / 2.0) * Math.sin(tangentAngle));
+            int side2X = (int) (baseX - (arrowWidth / 2.0) * Math.cos(tangentAngle));
+            int side2Y = (int) (baseY - (arrowWidth / 2.0) * Math.sin(tangentAngle));
 
 
-
-//            g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-//            String restartText = "Press SPACE to restart";
-//            metrics = g2d.getFontMetrics();
-//            x = (getWidth() - metrics.stringWidth(restartText)) / 2;
-//            g2d.drawString(restartText, x, getHeight() / 2 + 30);
+            g2d.fillPolygon(new int[]{tipX, side1X, side2X}, new int[]{tipY, side1Y, side2Y}, 3);
         }
     }
 
